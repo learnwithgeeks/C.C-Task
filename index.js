@@ -9,8 +9,8 @@ const app = require("express")(),
 
 /* Importing User Defined Modules */
 
-const Secure = require("./security/secure");
-const User = require("./models/user");
+const Secure = require("./security/secure"),
+  passportConf = require("./strategy/local");
 
 /* Middleware */
 
@@ -44,31 +44,12 @@ mongoose.connect(Secure.db, err => {
 
 /* All API For Todo  */
 
-//This API will check already authenticated user if user is authenticated and return that user else return route /loginUser
-app.get("/", (req, res) => {
-  if (req.user) {
-    app.render(req, res, "/", req.query);
-  } else {
-    res.redirect("/signin");
-  }
-});
+app.use("/", require("./routes/index"));
+app.use("/", require("./routes/signin"));
+app.use("/", require("./routes/signup"));
+app.use("/", require("./routes/signout"));
 
-//User Signup API
-app.post("/signup", (req, res) => {
-  var user = new User();
-  user.email = req.body.email;
-  user.password = req.body.password;
-  user.save((err, user) => {
-    if (err) {
-      console.error("Error: ", err);
-    } else {
-      //res.redirect("/signin");
-      console.log("Account Is Created");
-    }
-  });
-});
-
-/* Server will listen on the port defined in secure.port */
+/* Server will listen on the port defined in Secure.port */
 
 app.listen(Secure.port, err => {
   if (err) console.log("Error ! Server is not responding");
