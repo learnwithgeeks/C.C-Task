@@ -1,14 +1,19 @@
-/* This API will check already authenticated user if user is authenticated and return that user else return route /loginUser */
+/* Index JS Module will check already authenticated user if user is authenticated and return that user else return route /loginUser */
 
+//Importing 3rd Party Modules
 const express = require("express"),
   router = express.Router();
 
+/* This route will check user session */
 router.get("/", (req, res) => {
   if (req.user) {
     app.render(req, res, "/loggedIn", req.query);
+    return res.status(200).send({
+      status: "User Session Found"
+    });
   } else {
-    res.json({
-      status: "User session not found"
+    return res.status(400).send({
+      status: "User Session Not Found"
     });
   }
 });

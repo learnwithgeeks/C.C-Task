@@ -1,15 +1,20 @@
-/* This API is responsible for Signing in User by using passport local */
+/* Signin JS Module is responsible for authentication of by using passport local */
+
+//Importing 3rd Party Modules
 const express = require("express"),
   router = express.Router(),
   passport = require("passport");
 
+/* This route is used for authentication by usin passport local strategy */
 router.post(
   "/signin",
   passport.authenticate("local", {
     failureMessage: "User is not login in successfully"
   }),
   (req, res) => {
-    res.redirect("/loggedIn");
+    return res.status(200).send({
+      status: "User Logged In"
+    });
   }
 );
 

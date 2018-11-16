@@ -48,6 +48,7 @@ app.use("/", require("./routes/index"));
 app.use("/", require("./routes/signin"));
 app.use("/", require("./routes/signup"));
 app.use("/", require("./routes/signout"));
+app.use("/", require("./routes/changePassword"));
 
 /* Server will listen on the port defined in Secure.port */
 

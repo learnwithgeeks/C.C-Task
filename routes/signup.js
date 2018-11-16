@@ -1,19 +1,25 @@
-/* This Module is Responsible for creating user account */
+/* Signup JS Module is Responsible for creating user account */
 
+//Importing 3rd Party Modules
 const express = require("express"),
   router = express.Router();
+
+//Importing User Defined Module
 const User = require("../models/user");
 
+/* This route is responsible for creating user account by storing email and password to database */
 router.post("/signup", (req, res) => {
   var user = new User();
   user.email = req.body.email;
   user.password = req.body.password;
   user.save((err, user) => {
     if (err) {
-      console.error("Error: ", err);
+      return res.status(400).send({
+        status: "User Account is not created"
+      });
     } else {
-      res.json({
-        status: "User account created successfully"
+      return res.status(200).send({
+        status: "User account is created"
       });
     }
   });
