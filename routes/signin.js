@@ -5,7 +5,7 @@ const express = require("express"),
   router = express.Router(),
   passport = require("passport");
 
-/* This route is used for authentication by usin passport local strategy */
+/* This route is used for authentication by using passport local strategy */
 router.post(
   "/signin",
   passport.authenticate("local", {

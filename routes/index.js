@@ -7,7 +7,6 @@ const express = require("express"),
 /* This route will check user session */
 router.get("/", (req, res) => {
   if (req.user) {
-    app.render(req, res, "/loggedIn", req.query);
     return res.status(200).send({
       status: "User Session Found"
     });
