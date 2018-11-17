@@ -26,4 +26,15 @@ router.post("/singleTodo", (req, res) => {
   });
 });
 
+router.get("/showSingleTodo", (req, res) => {
+  SingleTodo.find({}, (err, user) => {
+    if (err) console.log("Error");
+    else {
+      return res.status(200).send({
+        data: user
+      });
+    }
+  });
+});
+
 module.exports = router;
