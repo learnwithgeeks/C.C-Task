@@ -5,7 +5,8 @@ const app = require("express")(),
   bodyParser = require("body-parser"),
   passport = require("passport"),
   cookieParser = require("cookie-parser"),
-  session = require("express-session");
+  session = require("express-session"),
+  cors = require("cors");
 
 /* Importing User Defined Modules */
 
@@ -30,6 +31,8 @@ app.use(
 app.use(passport.initialize());
 //Using Session in Passport Module
 app.use(passport.session());
+//Using Cors for sending request from React JS to Node JS and vice versa
+app.use(cors());
 
 /* Connection to MongoDB Database */
 

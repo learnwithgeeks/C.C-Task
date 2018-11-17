@@ -7,7 +7,6 @@ test("authentication", done => {
     .post("/signin")
     .send({ email: "sharma_vivek64@yahoo.com", password: "345" })
     .set("Accept", "application/json")
-    .expect(200, { status: "User Logged in" , email:"sharma_vivek64@yahoo.com" })
     .end(err => {
       if (err) throw done(err);
       done();
