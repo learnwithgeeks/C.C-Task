@@ -6,10 +6,9 @@ const express = require("express"),
 
 /* This route will check user session */
 router.get("/", (req, res) => {
-  if (req.user) {
+  if (req.cookies) {
     return res.status(200).send({
-      status: "User Session Found",
-      email:req.user.email
+      status: "User Session Found"
     });
   } else {
     return res.status(400).send({

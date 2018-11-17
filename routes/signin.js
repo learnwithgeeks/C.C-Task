@@ -2,21 +2,16 @@
 
 //Importing 3rd Party Modules
 const express = require("express"),
-  router = express.Router(),
-  passport = require("passport");
+  router = express.Router();
+const passport = require("../strategy/local");
 
 /* This route is used for authentication by using passport local strategy */
 router.post(
   "/signin",
   passport.authenticate("local", {
-    failureMessage: "User is not login in successfully"
-  }),
-  (req, res) => {
-    return res.status(200).send({
-      status: "User Logged In",
-      email:req.body.email
-    });
-  }
+    failureRedirect: "/",
+    successRedirect: "/"
+  })
 );
 
 module.exports = router;

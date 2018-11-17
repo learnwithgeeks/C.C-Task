@@ -9,8 +9,7 @@ const app = require("express")(),
 
 /* Importing User Defined Modules */
 
-const Secure = require("./security/secure"),
-  passportConf = require("./strategy/local");
+const Secure = require("./security/secure");
 
 /* Middleware */
 
@@ -50,6 +49,7 @@ app.use("/", require("./routes/signup"));
 app.use("/", require("./routes/signout"));
 app.use("/", require("./routes/changePassword"));
 app.use("/", require("./routes/singleTodo"));
+app.use("/", require("./routes/colabTodo"));
 
 /* Server will listen on the port defined in Secure.port */
 
