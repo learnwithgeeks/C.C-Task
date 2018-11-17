@@ -13,7 +13,8 @@ router.post(
   }),
   (req, res) => {
     return res.status(200).send({
-      status: "User Logged In"
+      status: "User Logged In",
+      email:req.body.email
     });
   }
 );

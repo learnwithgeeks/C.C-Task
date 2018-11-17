@@ -8,7 +8,8 @@ const express = require("express"),
 router.get("/", (req, res) => {
   if (req.user) {
     return res.status(200).send({
-      status: "User Session Found"
+      status: "User Session Found",
+      email:req.user.email
     });
   } else {
     return res.status(400).send({
