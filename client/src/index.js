@@ -2,11 +2,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import registerServiceWorker from "./registerServiceWorker";
 
 //User Defined Components
 import SingleTodo from "./singleTodo";
 import CollabrativeTodo from "./collabrativeTodo";
+import { initializeFirebase } from "./push-notification";
 
 //Render Component To DOM on index.html
 ReactDOM.render(
@@ -23,4 +23,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
-registerServiceWorker();
+initializeFirebase();

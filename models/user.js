@@ -10,7 +10,8 @@ const Schema = mongoose.Schema;
 //Schema of userModel for user
 const userModel = new Schema({
   email: { type: String, unique: true, lowercase: true },
-  password: String
+  password: String,
+  token: String
 });
 
 //Before saving the userModel in schema encrypt user password

@@ -53,6 +53,7 @@ app.use("/", require("./routes/signout"));
 app.use("/", require("./routes/changePassword"));
 app.use("/", require("./routes/singleTodo"));
 app.use("/", require("./routes/colabTodo"));
+app.use("/", require("./routes/notification"));
 
 /* Server will listen on the port defined in Secure.port */
 

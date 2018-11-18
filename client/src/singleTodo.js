@@ -4,6 +4,9 @@
 import React from "react";
 import axios from "axios";
 
+//User Defined Modules
+import { askForPermissionToReceiveNotifications } from "./push-notification";
+
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +15,7 @@ export default class extends React.Component {
   componentWillMount() {
     let email = window.location.hash.substring(1);
     this.setState({ email: email });
+    localStorage.setItem("email", email);
   }
   showTodo(Id) {
     document.getElementById(Id + "1").style.display = "inline-block";
@@ -31,6 +35,13 @@ export default class extends React.Component {
             <a href={"#" + this.state.email} style={{ fontSize: 30 }}>
               Single Todo
             </a>
+            <br />
+            <button
+              id="notification"
+              onClick={askForPermissionToReceiveNotifications}
+            >
+              Recieve Notification
+            </button>
             <div>
               {this.state.singleTodo.map((res, index) => {
                 return (

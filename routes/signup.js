@@ -12,6 +12,7 @@ router.post("/signup", (req, res) => {
   var user = new User();
   user.email = req.body.email;
   user.password = req.body.password;
+  user.token = "";
   user.save((err, user) => {
     if (err) {
       return res.status(400).send({
@@ -19,7 +20,7 @@ router.post("/signup", (req, res) => {
       });
     } else {
       return res.status(200).send({
-        status: "User account is created"
+        status: "User Account is created"
       });
     }
   });
