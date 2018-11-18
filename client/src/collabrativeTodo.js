@@ -12,6 +12,7 @@ export default class extends React.Component {
   componentWillMount() {
     let email = window.location.hash.substring(1);
     this.setState({ email: email });
+    localStorage.setItem("email", email);
   }
   showTodo(Id) {
     document.getElementById(Id + "1").style.display = "inline-block";

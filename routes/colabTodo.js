@@ -2,12 +2,14 @@
 
 //Importing 3rd Party Modules
 const express = require("express"),
+  axios = require("axios"),
   router = express.Router();
 
 //Importing User Defined Module
 const ColabTodo = require("../models/colabTodo");
+const User = require("../models/user");
 
-/* This route is responsible for storing todo collabrators , todo title and todo list in database  */
+/* This route is responsible for storing todo collabrators , todo title and todo list in database and send notification to client addreses  */
 router.post("/colabTodo", (req, res) => {
   var colabTodo = new ColabTodo();
   for (let i = 0; i < req.body.email.length; i++) {
@@ -23,9 +25,29 @@ router.post("/colabTodo", (req, res) => {
         status: "Colab Todo is not saved"
       });
     } else {
-      return res.status(200).send({
-        status: "Colab Todo is saved"
-      });
+      //Firebase Notification When Todo Is Added
+      for (let i = 0; i < req.body.email.length; i++) {
+        console.log(req.body.email[i]);
+        User.findOne({ email: req.body.email[i] }, (err, user) => {
+          if (!err) {
+            axios({
+              method: "post",
+              url: "https://fcm.googleapis.com/fcm/send",
+              data: {
+                to: user.token,
+                notification: {
+                  title: req.body.title
+                }
+              },
+              headers: {
+                Authorization:
+                  "key=AAAAZv05ZFw:APA91bFcfX1bl6Nc5HREIE2uJXjO00LHCVbDvAMjNyC9tBskXnlkA0LM0HjC5KJkRYzJo2beqNHXoImfIz8MgC6OmLYm5nj2ssWkRwkidMVR0jtPbRVHj78RfAjNgAiftgihriqtSyZj",
+                "Content-Type": "application/json"
+              }
+            });
+          }
+        });
+      }
     }
   });
 });

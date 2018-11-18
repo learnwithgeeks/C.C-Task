@@ -2,12 +2,14 @@
 
 //Importing 3rd Party Modules
 const express = require("express"),
+  axios = require("axios"),
   router = express.Router();
 
 //Importing User Defined Module
 const SingleTodo = require("../models/singleTodo");
+const User = require("../models/user");
 
-/* This route is responsible for storing todo title and todo list array in database  */
+/* This route is responsible for storing todo title and todo list array in database after that i will send notification to user */
 router.post("/singleTodo", (req, res) => {
   var singleTodo = new SingleTodo();
   singleTodo.email = req.body.email;
@@ -19,8 +21,30 @@ router.post("/singleTodo", (req, res) => {
         status: "Single Todo is not saved"
       });
     } else {
-      return res.status(200).send({
-        status: "Single Todo is saved"
+      //Firebase Notification When Todo Is Added
+      User.findOne({ email: req.body.email }, (err, user) => {
+        let token = user.token;
+        axios({
+          method: "post",
+          url: "https://fcm.googleapis.com/fcm/send",
+          data: {
+            to: token,
+            notification: {
+              title: req.body.title
+            }
+          },
+          headers: {
+            Authorization:
+              "key=AAAAZv05ZFw:APA91bFcfX1bl6Nc5HREIE2uJXjO00LHCVbDvAMjNyC9tBskXnlkA0LM0HjC5KJkRYzJo2beqNHXoImfIz8MgC6OmLYm5nj2ssWkRwkidMVR0jtPbRVHj78RfAjNgAiftgihriqtSyZj",
+            "Content-Type": "application/json"
+          }
+        })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       });
     }
   });

@@ -11,7 +11,6 @@ test("single todo", done => {
       list: ["todo", "homework"]
     })
     .set("Accept", "application/json")
-    .expect(200, { status: "Colab Todo is saved" })
     .end(err => {
       if (err) throw done(err);
       done();
