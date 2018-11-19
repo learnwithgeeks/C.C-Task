@@ -3,5 +3,5 @@
 module.exports = {
   port: 3000,
   key: "sessionKey",
-  db: "mongodb://localhost/cc"
+  db: "mongodb://vivek:viveksharma2@ds031721.mlab.com:31721/cc-task"
 };

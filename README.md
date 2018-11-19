@@ -31,7 +31,7 @@ contain React JS File for single and collabrative collapsed todo .
 - If you want to run test in React JS open [client folder](https://github.com/viveksharmaui/C.C-Task/tree/master/client) and write this command **npm run test** .
 
 ## How to use this project ?
-- If you want to use this project 1st you need to install Node Js and MongoDB locally on your system .
+- If you want to use this project 1st you need to install Node Js on your system .
 - For single and collabrative user first of all you need to create user account by [Signup API](https://github.com/viveksharmaui/C.C-Task/blob/master/routes/signup.js) .
 - After creating user account user can [Login](https://github.com/viveksharmaui/C.C-Task/blob/master/routes/signin.js) by using passport jwt authentication
 - You can add single todo or collabrative todo by this API's [Single Todo API] (https://github.com/viveksharmaui/C.C-Task/blob/master/routes/singleTodo.js) and 
