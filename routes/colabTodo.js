@@ -8,6 +8,7 @@ const express = require("express"),
 //Importing User Defined Module
 const ColabTodo = require("../models/colabTodo");
 const User = require("../models/user");
+const passport = require("../strategy/jwt");
 
 /* This route is responsible for storing todo collabrators , todo title and todo list in database and send notification to client addreses  */
 router.post("/colabTodo", (req, res) => {
@@ -27,7 +28,6 @@ router.post("/colabTodo", (req, res) => {
     } else {
       //Firebase Notification When Todo Is Added
       for (let i = 0; i < req.body.email.length; i++) {
-        console.log(req.body.email[i]);
         User.findOne({ email: req.body.email[i] }, (err, user) => {
           if (!err) {
             axios({
@@ -52,15 +52,21 @@ router.post("/colabTodo", (req, res) => {
   });
 });
 
-router.get("/showColabTodo", (req, res) => {
-  ColabTodo.find({}, (err, user) => {
-    if (err) console.log("Error");
-    else {
-      return res.status(200).send({
-        data: user
-      });
-    }
-  });
-});
+/* This route will show all the collabrative todo list to multiple user */
+router.get(
+  "/showColabTodo",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    ColabTodo.find({}, (err, user) => {
+      if (err) console.log("Error");
+      else {
+        return res.status(200).send({
+          data: user
+        });
+      }
+    });
+  }
+);
 
+//Exporting router module
 module.exports = router;

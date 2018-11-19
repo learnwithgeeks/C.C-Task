@@ -26,4 +26,5 @@ router.post("/notification", (req, res) => {
   );
 });
 
+//Importing router module
 module.exports = router;

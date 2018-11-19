@@ -57,4 +57,5 @@ router.post("/changePassword", function(req, res, next) {
   });
 });
 
+//Importing router module
 module.exports = router;

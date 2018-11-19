@@ -1,9 +1,13 @@
-//Third Party Modules
+/* Index JS Component is responsible for rendering all the component to DOM */
+
+//Importing Third Party Modules
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-//User Defined Components
+//Import User Defined Components
+import Login from "./login";
+import Signup from "./signup";
 import SingleTodo from "./singleTodo";
 import CollabrativeTodo from "./collabrativeTodo";
 import { initializeFirebase } from "./push-notification";
@@ -12,6 +16,8 @@ import { initializeFirebase } from "./push-notification";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
+      <Route exact path="/" name="Login" component={Login} />
+      <Route exact path="/signup" name="Single" component={Signup} />
       <Route exact path="/single" name="Single" component={SingleTodo} />
       <Route
         exact
@@ -23,4 +29,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
-initializeFirebase();
+initializeFirebase(); //This Method will initialize fireabase for notification

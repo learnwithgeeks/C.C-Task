@@ -5,9 +5,10 @@ const express = require("express"),
   axios = require("axios"),
   router = express.Router();
 
-//Importing User Defined Module
+//Importing User Defined Modules
 const SingleTodo = require("../models/singleTodo");
 const User = require("../models/user");
+const passport = require("../strategy/jwt");
 
 /* This route is responsible for storing todo title and todo list array in database after that i will send notification to user */
 router.post("/singleTodo", (req, res) => {
@@ -50,15 +51,21 @@ router.post("/singleTodo", (req, res) => {
   });
 });
 
-router.get("/showSingleTodo", (req, res) => {
-  SingleTodo.find({}, (err, user) => {
-    if (err) console.log("Error");
-    else {
-      return res.status(200).send({
-        data: user
-      });
-    }
-  });
-});
+/* This route will show all todo list to single user */
+router.get(
+  "/showSingleTodo",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    SingleTodo.find({}, (err, user) => {
+      if (err) console.log("Error");
+      else {
+        return res.status(200).send({
+          data: user
+        });
+      }
+    });
+  }
+);
 
+//Exporting router module
 module.exports = router;
